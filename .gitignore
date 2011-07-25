@@ -1,0 +1,41 @@
+# xcode noise
+*.build/*
+*.pbxuser
+*.mode1v3
+*.pbxbtree
+
+# old skool
+.svn
+
+# osx noise
+.DS_Store
+.profile
+
+# log files
+*.log
+
+# django config
+PulseMeme/pulsememe/settings.py
+
+# python object files
+*.pyc
+
+# java object files
+*.class
+
+# django-mediagenerator
+_generated_media*
+
+# eclipse metadata
+.project
+.pydevproject
+
+# swap files
+*.swp
+
+# google appengine stuff
+pulseapi/.gaedata
+pulseapi/.gaedata/*
+pulseapi/app.yaml
+pulseapi/static/robots.txt
+pulseapi/.idea*
