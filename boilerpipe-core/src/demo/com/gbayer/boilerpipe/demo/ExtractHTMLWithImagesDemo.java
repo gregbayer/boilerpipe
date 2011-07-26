@@ -1,4 +1,4 @@
-package de.l3s.boilerpipe.demo;
+package com.gbayer.boilerpipe.demo;
 
 import java.io.PrintWriter;
 import java.net.URL;
@@ -8,13 +8,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.l3s.boilerpipe.BoilerpipeExtractor;
+import de.l3s.boilerpipe.demo.Oneliner;
 import de.l3s.boilerpipe.extractors.CommonExtractors;
 import de.l3s.boilerpipe.sax.HTMLHighlighter;
 
 /**
- * Demonstrates how to use Boilerpipe to get the main content, highlighted as HTML.
+ * Demonstrates how to use this slightly modified version of Boilerpipe to get the main content as HTML, with images included.
  * 
- * @author Christian Kohlschütter
+ * @author Greg Bayer <greg@gbayer.com>
+ * Based on HTMLHighlightDemo by Christian Kohlschütter
  * @see Oneliner if you only need the plain text.
  */
 public class ExtractHTMLWithImagesDemo {
@@ -34,6 +36,8 @@ public class ExtractHTMLWithImagesDemo {
 
 		// choose the operation mode (i.e., highlighting or extraction)
 //		final HTMLHighlighter hh = HTMLHighlighter.newHighlightingInstance();
+		
+		// This new flag is all that is required to include images in extracted HTML
 		final boolean includeImages = true;
 		final HTMLHighlighter hh = HTMLHighlighter.newExtractingInstance(includeImages);
 		
