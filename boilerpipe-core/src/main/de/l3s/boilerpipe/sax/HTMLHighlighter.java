@@ -20,6 +20,7 @@ package de.l3s.boilerpipe.sax;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +53,7 @@ public final class HTMLHighlighter {
 	 * HTML text, with the extracted text portion <b>highlighted</b>.
 	 */
 	public static HTMLHighlighter newHighlightingInstance() {
-		return new HTMLHighlighter(false);
+		return new HTMLHighlighter(false, false);
 	}
 
 	/**
@@ -60,12 +61,17 @@ public final class HTMLHighlighter {
 	 * extracted HTML text, including enclosed markup.
 	 */
 	public static HTMLHighlighter newExtractingInstance() {
-		return new HTMLHighlighter(true);
+		return new HTMLHighlighter(true, false);
+	}
+	
+	public static HTMLHighlighter newExtractingInstance(final boolean includeImages) {
+		return new HTMLHighlighter(true, includeImages);
 	}
 
-	private HTMLHighlighter(final boolean extractHTML) {
+	private HTMLHighlighter(final boolean extractHTML, final boolean includeImages) {
 		if (extractHTML) {
 			setOutputHighlightOnly(true);
+			setIncludeImages(includeImages);
 			setExtraStyleSheet("\n<style type=\"text/css\">\n"
 			+ "A:before { content:' '; } \n"  //
 			+ "A:after { content:' '; } \n"  //
@@ -136,6 +142,8 @@ public final class HTMLHighlighter {
 	public String process(final URL url, final BoilerpipeExtractor extractor)
 			throws IOException, BoilerpipeProcessingException, SAXException {
 		final HTMLDocument htmlDoc = HTMLFetcher.fetch(url);
+		if (includeImages)
+			htmlDoc.encodeImageTagsAsText();
 
 		final TextDocument doc = new BoilerpipeSAXInput(htmlDoc.toInputSource())
 				.getTextDocument();
@@ -143,10 +151,16 @@ public final class HTMLHighlighter {
 
 		final InputSource is = htmlDoc.toInputSource();
 
-		return process(doc, is);
+		String finalHtml = process(doc, is);
+		if (includeImages)
+			finalHtml = HTMLDocument.restoreTextEncodedImageTags(finalHtml, htmlDoc.getCharset().name());
+		
+		return finalHtml;
 	}
 
+
 	private boolean outputHighlightOnly = false;
+	private boolean includeImages = false;
 	private String extraStyleSheet = "\n<style type=\"text/css\">\n"
 			+ ".x-boilerpipe-mark1 {" + " text-decoration:none; "
 			+ "background-color: #ffff42 !important; "
@@ -169,6 +183,20 @@ public final class HTMLHighlighter {
 	 */
 	public void setOutputHighlightOnly(boolean outputHighlightOnly) {
 		this.outputHighlightOnly = outputHighlightOnly;
+	}
+	
+	/**
+	 * If true, images within highlighted content will be returned in outputHighlightOnly mode
+	 */
+	public boolean isIncludeImages() {
+		return includeImages;
+	}
+
+	/**
+	 * Sets whether images within highlighted content will be returned in outputHighlightOnly mode
+	 */
+	public void setIncludeImages(boolean includeImages) {
+		this.includeImages = includeImages;
 	}
 
 	/**
