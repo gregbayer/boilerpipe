@@ -75,7 +75,7 @@ public class HTMLDocument implements InputSourceable {
 					imageAttributes = URLEncoder.encode(imageAttributes);
 				}
 				String encodedImageTag = "??img??" + imageAttributes + "??/img??";
-				System.out.println("encodedImageTag: " + encodedImageTag);
+//				System.out.println("encodedImageTag: " + encodedImageTag);
 				htmlDataString = matcher.replaceFirst(encodedImageTag);
 			}
 		}
@@ -114,9 +114,9 @@ public class HTMLDocument implements InputSourceable {
 					e.printStackTrace();
 					imageAttributes = URLDecoder.decode(imageAttributes);
 				}
-				String encodedImageTag = "<img " + imageAttributes + ">";
-				System.out.println("encodedImageTag: " + encodedImageTag);
-				htmlDataString = matcher.replaceFirst(encodedImageTag);
+				String decodedImageTag = "<img " + imageAttributes + ">";
+//				System.out.println("decodedImageTag: " + decodedImageTag);
+				htmlDataString = matcher.replaceFirst(decodedImageTag);
 			}
 		}
 		
