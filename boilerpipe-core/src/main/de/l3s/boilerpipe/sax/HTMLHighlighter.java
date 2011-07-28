@@ -142,16 +142,26 @@ public final class HTMLHighlighter {
 	public String process(final URL url, final BoilerpipeExtractor extractor)
 			throws IOException, BoilerpipeProcessingException, SAXException {
 		final HTMLDocument htmlDoc = HTMLFetcher.fetch(url);
+		
+		// Added to fix bug with unicode characters not being recognized by SAX parser on AppEngine (bug while appending chars to StringBuffer by offset)
+		htmlDoc.encodeEscapedCharsAsText();
+		
+		// Added to support including images in extracted HTML output
 		if (includeImages)
 			htmlDoc.encodeImageTagsAsText();
-
+		
 		final TextDocument doc = new BoilerpipeSAXInput(htmlDoc.toInputSource())
 				.getTextDocument();
 		extractor.process(doc);
-
+		
 		final InputSource is = htmlDoc.toInputSource();
-
+		
 		String finalHtml = process(doc, is);
+		
+		// Added to fix bug with unicode characters not being recognized by SAX parser on AppEngine (bug while appending chars to StringBuffer by offset)
+		finalHtml = HTMLDocument.restoreTextEncodedEscapedChars(finalHtml, htmlDoc.getCharset().name());
+		
+		// Added to support including images in extracted HTML output
 		if (includeImages)
 			finalHtml = HTMLDocument.restoreTextEncodedImageTags(finalHtml, htmlDoc.getCharset().name());
 		

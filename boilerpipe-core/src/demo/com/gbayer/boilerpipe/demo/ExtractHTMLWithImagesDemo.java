@@ -25,7 +25,9 @@ public class ExtractHTMLWithImagesDemo {
 //				"http://research.microsoft.com/en-us/um/people/ryenw/hcir2010/challenge.html"
 //				"http://boilerpipe-web.appspot.com/"
 //				"http://mashable.com/2011/07/19/bill-gates-reinvent-toilet/"
-				"http://techcrunch.com/2011/07/21/do-authors-dream-of-electric-book-signings-kindlegraph-hopes-so/"
+//				"http://techcrunch.com/2011/07/21/do-authors-dream-of-electric-book-signings-kindlegraph-hopes-so/"
+//				"file:///Users/gbayer/Desktop/livecount.html"
+				"file:///Users/gbayer/Desktop/techcrunch_story.html"
 		        );
 		
 		// choose from a set of useful BoilerpipeExtractors...

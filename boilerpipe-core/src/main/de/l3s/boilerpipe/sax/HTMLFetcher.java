@@ -3,10 +3,17 @@ package de.l3s.boilerpipe.sax;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.CodingErrorAction;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +40,8 @@ public class HTMLFetcher {
 		final URLConnection conn = url.openConnection();
 		final String ct = conn.getContentType();
 
-		Charset cs = Charset.forName("Cp1252");
+//		Charset cs = Charset.forName("Cp1252");
+		Charset cs = Charset.forName("UTF-8");
 		if (ct != null) {
 			Matcher m = PAT_CHARSET.matcher(ct);
 			if(m.find()) {
@@ -65,7 +73,20 @@ public class HTMLFetcher {
 		}
 		in.close();
 
-		final byte[] data = bos.toByteArray();
+		byte[] data = bos.toByteArray();
+		
+//		System.out.println("encoding: " + cs.getClass().getName());
+		
+		// Clean up invalid chars
+		CharsetDecoder decoder = cs.newDecoder();
+		decoder.onMalformedInput(CodingErrorAction.IGNORE);
+		decoder.onUnmappableCharacter(CodingErrorAction.IGNORE);
+		CharBuffer parsedData = decoder.decode(ByteBuffer.wrap(data));
+		
+		CharsetEncoder encoder = cs.newEncoder();
+		ByteBuffer encodedParsedData = encoder.encode(parsedData);
+		
+		data = encodedParsedData.array();
 		
 		return new HTMLDocument(data, cs);
 	}

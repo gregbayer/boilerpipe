@@ -17,6 +17,7 @@
  */
 package de.l3s.boilerpipe.sax;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.LinkedList;
@@ -211,10 +212,10 @@ public class BoilerpipeHTMLContentHandler implements ContentHandler {
 
 	// @Override
 	public void characters(char[] ch, int start, int length)
-			throws SAXException {
+			throws SAXException {		
 		textElementIdx++;
 
-	
+		
 		if (flush) {
 			flushBlock();
 			flush = false;
@@ -230,7 +231,7 @@ public class BoilerpipeHTMLContentHandler implements ContentHandler {
 		if (length == 0) {
 			return;
 		}
-
+		
 		final int end = start + length;
 		for (int i = start; i < end; i++) {
 			if (Character.isWhitespace(ch[i])) {
@@ -362,6 +363,11 @@ public class BoilerpipeHTMLContentHandler implements ContentHandler {
 			numWordsInWrappedLines = numWords - numWordsCurrentLine;
 		}
 
+//		String text2 = textBuffer.toString();
+//		if (text2.contains("has learned"))
+//			System.out.println("BoilerpipeHTMLContentHandler.flushBlock textBuffer: " + text2);
+
+		
 		TextBlock tb = new TextBlock(textBuffer.toString().trim(),
 				currentContainedTextElements, numWords, numLinkedWords,
 				numWordsInWrappedLines, numWrappedLines, offsetBlocks);
