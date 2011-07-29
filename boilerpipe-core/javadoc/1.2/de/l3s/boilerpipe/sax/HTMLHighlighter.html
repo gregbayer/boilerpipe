@@ -152,6 +152,14 @@ Highlights text blocks in an HTML document that have been marked as "content"
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../de/l3s/boilerpipe/sax/HTMLHighlighter.html#isBodyOnly()">isBodyOnly</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If true, only content within body tag will be returned</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../de/l3s/boilerpipe/sax/HTMLHighlighter.html#isIncludeImages()">isIncludeImages</A></B>()</CODE>
 
 <BR>
@@ -177,7 +185,8 @@ Highlights text blocks in an HTML document that have been marked as "content"
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../de/l3s/boilerpipe/sax/HTMLHighlighter.html" title="class in de.l3s.boilerpipe.sax">HTMLHighlighter</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../de/l3s/boilerpipe/sax/HTMLHighlighter.html#newExtractingInstance(boolean)">newExtractingInstance</A></B>(boolean&nbsp;includeImages)</CODE>
+<TD><CODE><B><A HREF="../../../../de/l3s/boilerpipe/sax/HTMLHighlighter.html#newExtractingInstance(boolean, boolean)">newExtractingInstance</A></B>(boolean&nbsp;includeImages,
+                      boolean&nbsp;bodyOnly)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -219,6 +228,14 @@ Highlights text blocks in an HTML document that have been marked as "content"
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../de/l3s/boilerpipe/sax/HTMLHighlighter.html#setBodyOnly(boolean)">setBodyOnly</A></B>(boolean&nbsp;bodyOnly)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets whether only content within body tag will be returned</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -314,10 +331,11 @@ public static <A HREF="../../../../de/l3s/boilerpipe/sax/HTMLHighlighter.html" t
 </DL>
 <HR>
 
-<A NAME="newExtractingInstance(boolean)"><!-- --></A><H3>
+<A NAME="newExtractingInstance(boolean, boolean)"><!-- --></A><H3>
 newExtractingInstance</H3>
 <PRE>
-public static <A HREF="../../../../de/l3s/boilerpipe/sax/HTMLHighlighter.html" title="class in de.l3s.boilerpipe.sax">HTMLHighlighter</A> <B>newExtractingInstance</B>(boolean&nbsp;includeImages)</PRE>
+public static <A HREF="../../../../de/l3s/boilerpipe/sax/HTMLHighlighter.html" title="class in de.l3s.boilerpipe.sax">HTMLHighlighter</A> <B>newExtractingInstance</B>(boolean&nbsp;includeImages,
+                                                    boolean&nbsp;bodyOnly)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -413,6 +431,32 @@ isIncludeImages</H3>
 public boolean <B>isIncludeImages</B>()</PRE>
 <DL>
 <DD>If true, images within highlighted content will be returned in outputHighlightOnly mode
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setBodyOnly(boolean)"><!-- --></A><H3>
+setBodyOnly</H3>
+<PRE>
+public void <B>setBodyOnly</B>(boolean&nbsp;bodyOnly)</PRE>
+<DL>
+<DD>Sets whether only content within body tag will be returned
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isBodyOnly()"><!-- --></A><H3>
+isBodyOnly</H3>
+<PRE>
+public boolean <B>isBodyOnly</B>()</PRE>
+<DL>
+<DD>If true, only content within body tag will be returned
 <P>
 <DD><DL>
 </DL>

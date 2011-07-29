@@ -292,6 +292,12 @@ Static variable in class de.l3s.boilerpipe.document.<A HREF="./de/l3s/boilerpipe
 <DT><A HREF="./de/l3s/boilerpipe/document/TextBlock.html#EMPTY_START"><B>EMPTY_START</B></A> - 
 Static variable in class de.l3s.boilerpipe.document.<A HREF="./de/l3s/boilerpipe/document/TextBlock.html" title="class in de.l3s.boilerpipe.document">TextBlock</A>
 <DD>&nbsp;
+<DT><A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html#encodeEscapedCharsAsText()"><B>encodeEscapedCharsAsText()</B></A> - 
+Method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html" title="class in de.l3s.boilerpipe.sax">HTMLDocument</A>
+<DD>&nbsp;
+<DT><A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html#encodeEscapedCharsAsText(java.lang.String, java.lang.String)"><B>encodeEscapedCharsAsText(String, String)</B></A> - 
+Static method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html" title="class in de.l3s.boilerpipe.sax">HTMLDocument</A>
+<DD>&nbsp;
 <DT><A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html#encodeImageTagsAsText()"><B>encodeImageTagsAsText()</B></A> - 
 Method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html" title="class in de.l3s.boilerpipe.sax">HTMLDocument</A>
 <DD>&nbsp;
@@ -625,7 +631,10 @@ Static variable in class de.l3s.boilerpipe.filters.simple.<A HREF="./de/l3s/boil
 <DT><A HREF="./de/l3s/boilerpipe/filters/simple/SurroundingToContentFilter.html#INSTANCE_TEXT"><B>INSTANCE_TEXT</B></A> - 
 Static variable in class de.l3s.boilerpipe.filters.simple.<A HREF="./de/l3s/boilerpipe/filters/simple/SurroundingToContentFilter.html" title="class in de.l3s.boilerpipe.filters.simple">SurroundingToContentFilter</A>
 <DD>&nbsp;
-<DT><A HREF="./de/l3s/boilerpipe/filters/simple/InvertedFilter.html" title="class in de.l3s.boilerpipe.filters.simple"><B>InvertedFilter</B></A> - Class in <A HREF="./de/l3s/boilerpipe/filters/simple/package-summary.html">de.l3s.boilerpipe.filters.simple</A><DD>Reverts the "isContent" flag for all <A HREF="./de/l3s/boilerpipe/document/TextBlock.html" title="class in de.l3s.boilerpipe.document"><CODE>TextBlock</CODE></A>s<DT><A HREF="./de/l3s/boilerpipe/document/TextBlock.html#isContent()"><B>isContent()</B></A> - 
+<DT><A HREF="./de/l3s/boilerpipe/filters/simple/InvertedFilter.html" title="class in de.l3s.boilerpipe.filters.simple"><B>InvertedFilter</B></A> - Class in <A HREF="./de/l3s/boilerpipe/filters/simple/package-summary.html">de.l3s.boilerpipe.filters.simple</A><DD>Reverts the "isContent" flag for all <A HREF="./de/l3s/boilerpipe/document/TextBlock.html" title="class in de.l3s.boilerpipe.document"><CODE>TextBlock</CODE></A>s<DT><A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html#isBodyOnly()"><B>isBodyOnly()</B></A> - 
+Method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html" title="class in de.l3s.boilerpipe.sax">HTMLHighlighter</A>
+<DD>If true, only content within body tag will be returned
+<DT><A HREF="./de/l3s/boilerpipe/document/TextBlock.html#isContent()"><B>isContent()</B></A> - 
 Method in class de.l3s.boilerpipe.document.<A HREF="./de/l3s/boilerpipe/document/TextBlock.html" title="class in de.l3s.boilerpipe.document">TextBlock</A>
 <DD>&nbsp;
 <DT><A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html#isIncludeImages()"><B>isIncludeImages()</B></A> - 
@@ -736,7 +745,7 @@ Constructor for class de.l3s.boilerpipe.filters.simple.<A HREF="./de/l3s/boilerp
 Static method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html" title="class in de.l3s.boilerpipe.sax">HTMLHighlighter</A>
 <DD>Creates a new <A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html" title="class in de.l3s.boilerpipe.sax"><CODE>HTMLHighlighter</CODE></A>, which is set-up to return only the
  extracted HTML text, including enclosed markup.
-<DT><A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html#newExtractingInstance(boolean)"><B>newExtractingInstance(boolean)</B></A> - 
+<DT><A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html#newExtractingInstance(boolean, boolean)"><B>newExtractingInstance(boolean, boolean)</B></A> - 
 Static method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html" title="class in de.l3s.boilerpipe.sax">HTMLHighlighter</A>
 <DD>&nbsp;
 <DT><A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html#newHighlightingInstance()"><B>newHighlightingInstance()</B></A> - 
@@ -885,6 +894,12 @@ Method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/Boilerpip
 <DT><A HREF="./de/l3s/boilerpipe/document/TextBlock.html#removeLabel(java.lang.String)"><B>removeLabel(String)</B></A> - 
 Method in class de.l3s.boilerpipe.document.<A HREF="./de/l3s/boilerpipe/document/TextBlock.html" title="class in de.l3s.boilerpipe.document">TextBlock</A>
 <DD>&nbsp;
+<DT><A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html#restoreTextEncodedEscapedChars()"><B>restoreTextEncodedEscapedChars()</B></A> - 
+Method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html" title="class in de.l3s.boilerpipe.sax">HTMLDocument</A>
+<DD>&nbsp;
+<DT><A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html#restoreTextEncodedEscapedChars(java.lang.String, java.lang.String)"><B>restoreTextEncodedEscapedChars(String, String)</B></A> - 
+Static method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html" title="class in de.l3s.boilerpipe.sax">HTMLDocument</A>
+<DD>&nbsp;
 <DT><A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html#restoreTextEncodedImageTags()"><B>restoreTextEncodedImageTags()</B></A> - 
 Method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLDocument.html" title="class in de.l3s.boilerpipe.sax">HTMLDocument</A>
 <DD>&nbsp;
@@ -896,6 +911,9 @@ Static method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HT
 <A NAME="_S_"><!-- --></A><H2>
 <B>S</B></H2>
 <DL>
+<DT><A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html#setBodyOnly(boolean)"><B>setBodyOnly(boolean)</B></A> - 
+Method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/HTMLHighlighter.html" title="class in de.l3s.boilerpipe.sax">HTMLHighlighter</A>
+<DD>Sets whether only content within body tag will be returned
 <DT><A HREF="./de/l3s/boilerpipe/sax/BoilerpipeHTMLParser.html#setContentHandler(de.l3s.boilerpipe.sax.BoilerpipeHTMLContentHandler)"><B>setContentHandler(BoilerpipeHTMLContentHandler)</B></A> - 
 Method in class de.l3s.boilerpipe.sax.<A HREF="./de/l3s/boilerpipe/sax/BoilerpipeHTMLParser.html" title="class in de.l3s.boilerpipe.sax">BoilerpipeHTMLParser</A>
 <DD>&nbsp;

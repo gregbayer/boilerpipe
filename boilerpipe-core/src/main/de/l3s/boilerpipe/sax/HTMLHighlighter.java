@@ -53,7 +53,7 @@ public final class HTMLHighlighter {
 	 * HTML text, with the extracted text portion <b>highlighted</b>.
 	 */
 	public static HTMLHighlighter newHighlightingInstance() {
-		return new HTMLHighlighter(false, false);
+		return new HTMLHighlighter(false, false, false);
 	}
 
 	/**
@@ -61,23 +61,29 @@ public final class HTMLHighlighter {
 	 * extracted HTML text, including enclosed markup.
 	 */
 	public static HTMLHighlighter newExtractingInstance() {
-		return new HTMLHighlighter(true, false);
+		return new HTMLHighlighter(true, false, false);
 	}
 	
-	public static HTMLHighlighter newExtractingInstance(final boolean includeImages) {
-		return new HTMLHighlighter(true, includeImages);
+	public static HTMLHighlighter newExtractingInstance(final boolean includeImages, final boolean bodyOnly) {
+		return new HTMLHighlighter(true, includeImages, bodyOnly);
 	}
 
-	private HTMLHighlighter(final boolean extractHTML, final boolean includeImages) {
+	private HTMLHighlighter(final boolean extractHTML, final boolean includeImages, final boolean bodyOnly) {
 		if (extractHTML) {
 			setOutputHighlightOnly(true);
 			setIncludeImages(includeImages);
-			setExtraStyleSheet("\n<style type=\"text/css\">\n"
-			+ "A:before { content:' '; } \n"  //
-			+ "A:after { content:' '; } \n"  //
-			+ "SPAN:before { content:' '; } \n"  //
-			+ "SPAN:after { content:' '; } \n"  //
-			+ "</style>\n");
+			setBodyOnly(bodyOnly);
+			if (isBodyOnly())
+				setExtraStyleSheet("");
+			else {
+				setExtraStyleSheet("\n<style type=\"text/css\">\n"
+						+ "A:before { content:' '; } \n"  //
+						+ "A:after { content:' '; } \n"  //
+						+ "SPAN:before { content:' '; } \n"  //
+						+ "SPAN:after { content:' '; } \n"  //
+						+ "</style>\n");
+			}
+				
 			setPreHighlight("");
 			setPostHighlight("");
 		}
@@ -171,6 +177,7 @@ public final class HTMLHighlighter {
 
 	private boolean outputHighlightOnly = false;
 	private boolean includeImages = false;
+	private boolean bodyOnly = false;
 	private String extraStyleSheet = "\n<style type=\"text/css\">\n"
 			+ ".x-boilerpipe-mark1 {" + " text-decoration:none; "
 			+ "background-color: #ffff42 !important; "
@@ -203,11 +210,26 @@ public final class HTMLHighlighter {
 	}
 
 	/**
+	 * Sets whether only content within body tag will be returned
+	 */
+	public void setBodyOnly(boolean bodyOnly) {
+		this.bodyOnly = bodyOnly;
+	}
+	
+	/**
+	 * If true, only content within body tag will be returned
+	 */
+	public boolean isBodyOnly() {
+		return bodyOnly;
+	}
+
+	/**
 	 * Sets whether images within highlighted content will be returned in outputHighlightOnly mode
 	 */
 	public void setIncludeImages(boolean includeImages) {
 		this.includeImages = includeImages;
 	}
+
 
 	/**
 	 * Returns the extra stylesheet definition that will be inserted in the HEAD
@@ -296,6 +318,24 @@ public final class HTMLHighlighter {
 			instance.inIgnorableElement--;
 		}
 	};
+	
+	private static final TagAction TA_IGNORABLE_TAG_BUT_INCLUDE_CONTENT = new TagAction() {
+		void beforeStart(final Implementation instance, final String localName) {
+			instance.ignoreTagButIncludeContent++;
+		}
+		
+		void afterStart(final Implementation instance, final String localName) {
+			instance.ignoreTagButIncludeContent--;
+		}
+
+		void beforeEnd(final Implementation instance, final String localName) {
+			instance.ignoreTagButIncludeContent++;
+		}
+		
+		void afterEnd(final Implementation instance, final String localName) {
+			instance.ignoreTagButIncludeContent--;
+		}
+	};
 
 	private static final TagAction TA_HEAD = new TagAction() {
 		void beforeStart(final Implementation instance, final String localName) {
@@ -310,35 +350,46 @@ public final class HTMLHighlighter {
 			instance.inIgnorableElement--;
 		}
 	};
-	private static Map<String, TagAction> TAG_ACTIONS = new HashMap<String, TagAction>();
-	static {
-		TAG_ACTIONS.put("STYLE", TA_IGNORABLE_ELEMENT);
-		TAG_ACTIONS.put("SCRIPT", TA_IGNORABLE_ELEMENT);
-		TAG_ACTIONS.put("OPTION", TA_IGNORABLE_ELEMENT);
-		TAG_ACTIONS.put("NOSCRIPT", TA_IGNORABLE_ELEMENT);
-		TAG_ACTIONS.put("OBJECT", TA_IGNORABLE_ELEMENT);
-		TAG_ACTIONS.put("EMBED", TA_IGNORABLE_ELEMENT);
-		TAG_ACTIONS.put("APPLET", TA_IGNORABLE_ELEMENT);
-		// NOTE: you might want to comment this out:
-		TAG_ACTIONS.put("LINK", TA_IGNORABLE_ELEMENT);
 
-		TAG_ACTIONS.put("HEAD", TA_HEAD);
-	}
-
+	
 	private final class Implementation extends AbstractSAXParser implements
 			ContentHandler {
 		StringBuilder html = new StringBuilder();
 
 		private int inIgnorableElement = 0;
+		private int ignoreTagButIncludeContent = 0;
 		private int characterElementIdx = 0;
 		private final BitSet contentBitSet = new BitSet();
 		private final HTMLHighlighter hl = HTMLHighlighter.this;
 
+		private Map<String, TagAction> TAG_ACTIONS = new HashMap<String, TagAction>();
+		
 		Implementation() {
 			super(new HTMLConfiguration());
+			setupTagActions();
 			setContentHandler(this);
 		}
 
+		private void setupTagActions(){
+			TAG_ACTIONS.put("STYLE", TA_IGNORABLE_ELEMENT);
+			TAG_ACTIONS.put("SCRIPT", TA_IGNORABLE_ELEMENT);
+			TAG_ACTIONS.put("OPTION", TA_IGNORABLE_ELEMENT);
+			TAG_ACTIONS.put("NOSCRIPT", TA_IGNORABLE_ELEMENT);
+			TAG_ACTIONS.put("OBJECT", TA_IGNORABLE_ELEMENT);
+			TAG_ACTIONS.put("EMBED", TA_IGNORABLE_ELEMENT);
+			TAG_ACTIONS.put("APPLET", TA_IGNORABLE_ELEMENT);
+			// NOTE: you might want to comment this out:
+			TAG_ACTIONS.put("LINK", TA_IGNORABLE_ELEMENT);
+
+			TAG_ACTIONS.put("HEAD", TA_HEAD);
+
+			if ( isBodyOnly() )
+			{
+				TAG_ACTIONS.put("HTML", TA_IGNORABLE_TAG_BUT_INCLUDE_CONTENT);
+				TAG_ACTIONS.put("BODY", TA_IGNORABLE_TAG_BUT_INCLUDE_CONTENT);
+			}
+		}
+		
 		void process(final TextDocument doc, final InputSource is)
 				throws BoilerpipeProcessingException {
 			for (TextBlock block : doc.getTextBlocks()) {
@@ -399,7 +450,7 @@ public final class HTMLHighlighter {
 			}
 
 			try {
-				if (inIgnorableElement == 0) {
+				if (inIgnorableElement == 0 && ignoreTagButIncludeContent == 0) {
 					if (outputHighlightOnly) {
 //						boolean highlight = contentBitSet
 //								.get(characterElementIdx);
@@ -463,7 +514,7 @@ public final class HTMLHighlighter {
 		public void characters(char[] ch, int start, int length)
 				throws SAXException {
 			characterElementIdx++;
-			if (inIgnorableElement == 0) {
+			if (inIgnorableElement == 0 || ignoreTagButIncludeContent == 1) {
 
 				boolean highlight = contentBitSet.get(characterElementIdx);
 

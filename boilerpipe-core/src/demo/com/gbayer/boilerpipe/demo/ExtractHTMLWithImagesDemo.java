@@ -41,7 +41,8 @@ public class ExtractHTMLWithImagesDemo {
 		
 		// This new flag is all that is required to include images in extracted HTML
 		final boolean includeImages = true;
-		final HTMLHighlighter hh = HTMLHighlighter.newExtractingInstance(includeImages);
+		final boolean bodyOnly = true;
+		final HTMLHighlighter hh = HTMLHighlighter.newExtractingInstance(includeImages, bodyOnly);
 		
 		PrintWriter out = new PrintWriter("/tmp/highlighted.html", "UTF-8");
 		out.println("<base href=\"" + url + "\" >");

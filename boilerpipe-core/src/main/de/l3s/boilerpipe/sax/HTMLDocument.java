@@ -169,7 +169,7 @@ public class HTMLDocument implements InputSourceable {
 					escChar = URLEncoder.encode(escChar);
 				}
 				String encodedEscChar = "#esc#" + escChar + "#/esc#";
-				System.out.println("encodedEscChar: " + encodedEscChar);
+//				System.out.println("encodedEscChar: " + encodedEscChar);
 				htmlDataString = matcher.replaceFirst(encodedEscChar);
 			}
 		}
@@ -210,7 +210,7 @@ public class HTMLDocument implements InputSourceable {
 					escChar = URLDecoder.decode(escChar);
 				}
 				String decodedEscChar = "&#" + escChar + ";";
-				System.out.println("decodedEscChar: " + decodedEscChar);
+//				System.out.println("decodedEscChar: " + decodedEscChar);
 				htmlDataString = matcher.replaceFirst(decodedEscChar);
 			}
 		}
